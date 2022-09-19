@@ -23,10 +23,11 @@ timezone: Asia/Shanghai
 
 title: Tong Xiao's Blog                # the main title
 
-tagline: A text-focused Jekyll theme   # it will display as the sub-title
+tagline: 想当一个会写代码的厨子           # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
-  A minimal, responsive, and powerful Jekyll theme for presenting professional writing.
+  description
+# A minimal, responsive, and powerful Jekyll theme for presenting professional writing.
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
 url: 'https://tongxiao2002.github.io'

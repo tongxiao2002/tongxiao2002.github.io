@@ -1,8 +1,8 @@
 ---
 title: python ImportError 简单解析
 date: 2022-09-19 13:12:30 +0800
-categories: []
-tags: [python]
+categories: [Python, Characteristics]
+tags: [python import]
 ---
 
 本文主要受益于[StackOverflow](https://stackoverflow.com/questions/16981921/relative-imports-in-python-3).
@@ -13,12 +13,12 @@ tags: [python]
 
 ```python
 src
-├── trainer/
-│   ├── __init__.py
-│   ├── train.py
-├── utils/
-│   ├── __init__.py
-│   ├── utils.py
+|-- trainer/
+|   |-- __init__.py
+|   |-- train.py
+|-- utils/
+|   |-- __init__.py
+|   |-- utils.py
 ```
 
 在 `train.py` 中 `import` 了 `utils.py`，这在代码编写时 vscode 都能正常解析出来，也没有给出语法报错。但是运行时 `python` 就一直各种报错:
@@ -27,7 +27,7 @@ ModuleNotFoundError: No module named 'src'
 
 ImportError: attempted relative import with no known parent package
 ```
-试便了所有 import 方式都不行。
+试遍了所有 `import` 方式都不行。
 
 然后昨天同学把我叫去帮忙 debug，又遇到了这类似的问题，因此回来后花了一晚上仔细阅读了很多资料，自认为有了一定了解，所以记录一下。
 
@@ -67,12 +67,12 @@ ImportError: attempted relative import with no known parent package
 在下例中
 ```python
 src
-├── trainer/
-│   ├── __init__.py
-│   ├── train.py
-├── utils/
-│   ├── __init__.py
-│   ├── utils.py
+|-- trainer/
+|   |-- __init__.py
+|   |-- train.py
+|-- utils/
+|   |-- __init__.py
+|   |-- utils.py
 ```
 
 假设我们工作目录为 `src`，如果我们使用诸如 `python trainer/train.py` 来启动 `python`，那么此时 `sys.path` 的第一个值将会是 `/path/to/src/trainer`。
@@ -110,10 +110,10 @@ from ..utils import utils
 
 ```python
 src
-├── train.py
-├── utils/
-│   ├── __init__.py
-│   ├── utils.py
+|-- train.py
+|-- utils/
+|   |-- __init__.py
+|   |-- utils.py
 ```
 
 这样在执行 `python train.py` 时，`sys.path` 就会被设置成 `/path/to/src`，因此 `utils` 包也就会处于 `python` 的搜索路径之下，问题得到解决。
@@ -147,12 +147,12 @@ sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 ```python
 project
-├── src/
-│   ├── train.py
-│   ├── utils/
-│   ├── __init__.py
-│   ├── utils.py
-├── setup.py
+|-- src/
+|   |-- train.py
+|   |-- utils/
+|   |-- __init__.py
+|   |-- utils.py
+|-- setup.py
 ```
 其中 `setpy.py` 内容为：
 
