@@ -60,7 +60,7 @@ ImportError: attempted relative import with no known parent package
 看到这你可能就要问了：我寻思这几个路径和我们自己的包什么关系都没有，怎么说这个 `sys.path` 和我们之前的报错有关？
 
 注意到上面 `sys.path` 第一个值为空，其实这个就是关键。我们继续来看[官方文档](https://docs.python.org/3/library/sys.html#sys.path)中对 `sys.path` 的描述：
-> As initialized upon program startup, <u>the first item of this list, `path[0]`, is the directory containing the script that was used to invoke the Python interpreter.</u> If the script directory is not available (e.g. if the interpreter is invoked interactively or if the script is read from standard input), `path[0]` is the empty string, which directs Python to search modules in the current directory first.
+> As initialized upon program startup, <u>the first item of this list, path[0], is the directory containing the script that was used to invoke the Python interpreter.</u> If the script directory is not available (e.g. if the interpreter is invoked interactively or if the script is read from standard input), `path[0]` is the empty string, which directs Python to search modules in the current directory first.
 
 上例中为空其实只是因为我们是使用终端去启动 `python` 的，因此 `sys.path` 的第一个值会被置为空。
 
@@ -88,7 +88,7 @@ from utils import utils
 因为 `utils` 这个包不存在于搜索路径 `/path/to/src/trainer` 之下。
 
 而这个 `python` 的搜索路径又有点类似于 linux 中的 `/`，不能再上一层，参见[PEP328](https://peps.python.org/pep-0328/#relative-imports-and-name)
-> Relative imports use a module’s `__name__` attribute to determine that module’s position in the package hierarchy. <u>If the module’s name does not contain any package information (e.g. it is set to `'__main__'`) then relative imports are resolved as if the module were a top level module, regardless of where the module is actually located on the file system.</u>
+> Relative imports use a module’s `__name__` attribute to determine that module’s position in the package hierarchy. <u>If the module’s name does not contain any package information (e.g. it is set to '\_\_main\_\_') then relative imports are resolved as if the module were a top level module, regardless of where the module is actually located on the file system.</u>
 
 其中 `Top Level Module` 就有点类似 linux 的 `/`。当然只是个人理解，可能存在错误。
 
