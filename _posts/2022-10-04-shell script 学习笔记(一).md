@@ -2,7 +2,7 @@
 title: shell script 学习笔记（一）
 date: 2022-10-04 22:08:30 +0800
 categories: [Shell Script, Basics]
-tags: [variable regex]
+tags: [variable, regex]
 ---
 
 本文主要受益于《鸟哥的 Linux 私房菜》。
