@@ -3,11 +3,11 @@ layout: compress
 # Default layout
 ---
 
-<!DOCTYPE html>
-
-{% include lang.html %}
+<!doctype html>
 
 {% include assets-origin.html %}
+
+{% include lang.html %}
 
 {% capture prefer_mode %}
   {% if site.theme_mode %}
@@ -15,28 +15,25 @@ layout: compress
   {% endif %}
 {% endcapture %}
 
-<html lang="{{ site.lang }}"{{ prefer_mode }}>
-
+<!-- `site.alt_lang` can specify a language different from the UI -->
+<html lang="{{ site.alt_lang | default: site.lang }}" {{ prefer_mode }}>
   {% include head.html %}
 
-  <body data-spy="scroll" data-target="#toc" data-topbar-visible="true">
+  <body data-topbar-visible="true">
+    {% include sidebar.html lang=lang %}
 
-    {% include sidebar.html %}
-
-    {% include topbar.html %}
+    {% include topbar.html lang=lang %}
 
     <div id="main-wrapper" class="d-flex justify-content-center">
       <div id="main" class="container pl-xl-4 pr-xl-4">
-
         {{ content }}
-
-        {% include footer.html %}
-
       </div>
 
-      {% include search-results.html %}
+      {% include search-results.html lang=lang %}
+    </div>
+    <!-- #main-wrapper -->
 
-    </div> <!-- #main-wrapper -->
+    {% include footer.html lang=lang %}
 
     {% if page.mermaid %}
       {% include mermaid.html %}
@@ -49,8 +46,15 @@ layout: compress
     </a>
 
     {% if site.pwa.enabled %}
-      <div id="notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
-        data-animation="true" data-autohide="false">
+      <div
+        id="notification"
+        class="toast"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+        data-animation="true"
+        data-autohide="false"
+      >
         <div class="toast-header">
           <button type="button" class="ml-2 ml-auto close" data-dismiss="toast" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -68,7 +72,5 @@ layout: compress
     {% include search-loader.html %}
 
     {% include js-selector.html %}
-
   </body>
-
 </html>
