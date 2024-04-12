@@ -70,6 +70,11 @@ post:
     share_link:
       title: Copie o link
       succeed: Link copiado com sucesso!
+<<<<<<< HEAD
+=======
+  # pinned prompt of posts list on homepage
+  pin_prompt: Fixado
+>>>>>>> 38b3a09 (jekyll first commit)
 
 # categories page
 categories:

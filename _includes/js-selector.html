@@ -73,6 +73,7 @@
 {% if page.math %}
   <!-- MathJax -->
   <script>
+<<<<<<< HEAD
     /* see: <https://docs.mathjax.org/en/latest/options/input/tex.html#tex-options> */
     MathJax = {
       tex: {
@@ -99,6 +100,37 @@
   <!-- PWA -->
   {% if site.pwa.enabled %}
     <script defer src="{{ 'app.min.js' | prepend: js_dist | relative_url }}"></script>
+=======
+  /* see: <https://docs.mathjax.org/en/latest/options/input/tex.html#tex-options> */
+  MathJax = {
+    tex: {
+      inlineMath: [              /* start/end delimiter pairs for in-line math */
+        ['$','$'],
+        ['\\(','\\)']
+      ],
+      displayMath: [             /* start/end delimiter pairs for display math */
+        ['$$', '$$'],
+        ['\\[', '\\]']
+      ]
+    }
+  };
+  </script>
+  <script src="{{ site.data.assets[origin].polyfill.js | relative_url }}"></script>
+  <script id="MathJax-script" async src="{{ site.data.assets[origin].mathjax.js | relative_url }}">
+  </script>
+{% endif %}
+
+<!-- commons -->
+
+<script src="{{ site.data.assets[origin].bootstrap.js | relative_url }}"></script>
+
+{% if jekyll.environment == 'production' %}
+  <!-- PWA -->
+  {% if site.pwa.enabled %}
+    <script defer src="{{ '/app.js' | relative_url }}"></script>
+  {% else %}
+    <script defer src="{{ '/unregister.js' | relative_url }}"></script>
+>>>>>>> 38b3a09 (jekyll first commit)
   {% endif %}
 
   <!-- GA -->
@@ -106,8 +138,11 @@
     {% include google-analytics.html %}
   {% endif %}
 
+<<<<<<< HEAD
   <!-- GoatCounter -->
   {% if site.goatcounter.id != empty and site.goatcounter.id %}
     {% include goatcounter.html %}
   {% endif %}
+=======
+>>>>>>> 38b3a09 (jekyll first commit)
 {% endif %}

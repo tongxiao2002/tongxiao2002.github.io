@@ -2,6 +2,7 @@
 #  Icons from <https://fontawesome.com/>
 
 platforms:
+<<<<<<< HEAD
   - type: Twitter
     icon: "fa-brands fa-square-x-twitter"
     link: "https://twitter.com/intent/tweet?text=TITLE&url=URL"
@@ -11,10 +12,23 @@ platforms:
     link: "https://www.facebook.com/sharer/sharer.php?title=TITLE&u=URL"
 
   - type: Telegram
+=======
+  -
+    type: Twitter
+    icon: "fab fa-twitter"
+    link: "https://twitter.com/intent/tweet?text=TITLE&url=URL"
+  -
+    type: Facebook
+    icon: "fab fa-facebook-square"
+    link: "https://www.facebook.com/sharer/sharer.php?title=TITLE&u=URL"
+  -
+    type: Telegram
+>>>>>>> 38b3a09 (jekyll first commit)
     icon: "fab fa-telegram"
     link: "https://t.me/share/url?url=URL&text=TITLE"
 
   # Uncomment below if you need to.
+<<<<<<< HEAD
   #
   # - type: Linkedin
   #   icon: "fab fa-linkedin"
@@ -36,3 +50,14 @@ platforms:
   #       link: "https://fosstodon.org/"
   #     - label: photog.social
   #       link: "https://photog.social/"
+=======
+  # -
+  #   type: Linkedin
+  #   icon: "fab fa-linkedin"
+  #   link: "https://www.linkedin.com/sharing/share-offsite/?url=URL"
+  #
+  # -
+  #   type: Weibo
+  #   icon: "fab fa-weibo"
+  #   link: "http://service.weibo.com/share/share.php?title=TITLE&url=URL"
+>>>>>>> 38b3a09 (jekyll first commit)
