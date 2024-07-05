@@ -1,9 +1,11 @@
 ---
-title: vllm 推理适配自定义模型
+title: vllm 推理适配自定义模型 (1)
 date: 2024-06-30 16:30:00 +0800
 categories: [Large Language Models]
 tags: [vllm, inference]
 ---
+
+本文对应代码：[https://github.com/tongxiao2002/vllm-for-LMMS](https://github.com/tongxiao2002/vllm-for-LMMS)
 
 ## 背景
 
@@ -399,6 +401,6 @@ ModelRegistry.register_model("LlavaRForConditionalGeneration", LlavaRForConditio
 因为遇到了以下两个认知方面的错误：
 
 1. 之前看到 `LLaVA` 和 `LLaVAR` 都是 release **delta** 版本的参数，完全没在意。直到昨晚拿着 **delta** 版本的 checkpoints 加载模型，然后模型跑起来之后一直胡言乱语不说人话，对着 `vllm` 源码翻来覆去看 + google 了 3h 才反应过来这个 **delta** 版本是什么意思... 其实就是为了不违背 LLaMA 的 LICENCE，将最终模型的参数跟 LLaMA 模型参数做了减法得到的参数就是 release 出来的 **delta** 版本。然后因为这认知上的疏忽坑了我一晚上的老头环 DLC 时间。
-2. 这位更是重量级。我将 **delta** 版本的参数恢复之后直接将原来的 `pytorch_model-00001-of-00003.bin` 等模型文件名加了个前缀 `delta-` (`delta-pytorch_model-00001-of-00003.bin`)，继续放在 checkpoints 文件夹下，看似没有问题。然而跑起来之后发现模型依然胡言乱语不说人话，但是用 [`LLaVAR` Github Repo](https://github.com/SALT-NLP/LLaVAR) 的代码却能够正常说话，还能有这么奇怪的事？于是又是 4h 翻来覆去看 `vllm` 源码 + google... 最终发现问题出在了 `delta-pytorch_model-00001-of-00003.bin` 上面。我之前看过 `hugginface` 的 `.from_pretrained` 方法的加载 checkpoints 的逻辑，是取 `pytorch_model.bin.index.json` 文件的所有 value 的并集作为加载对象，非常合理正确，然后我就以为 `vllm` 也是一样的。直到我看到了 [`vllm` 的加载逻辑](https://github.com/vllm-project/vllm/blob/0f0d8bc065f3608e7657a9696f5d2d7c0d6722d1/vllm/model_executor/model_loader/loader.py#L156)，它居然是将 checkpoints 文件夹下所有 `.bin` 文件都加载？？？也就是说之前的 `delta-pytorch_model-00001-of-00003.bin` 文件也被加载了，所以有一些正确的参数就被 `delta` 版本的参数覆盖了，从而导致模型一直在胡言乱语不说人话。然后我把 `delta` 文件全删了，模型推理终于正常了。此时我想着一整个被用于 debug 的假期下午，只想大喊：“vllm 我 \*\*\*\*，你 \*\*\*\*！”
+2. 这位更是重量级。我将 **delta** 版本的参数恢复之后直接将原来的 `pytorch_model-00001-of-00003.bin` 等模型文件名加了个前缀 `delta-` (`delta-pytorch_model-00001-of-00003.bin`)，继续放在 checkpoints 文件夹下，看似没有问题。然而跑起来之后发现模型依然胡言乱语不说人话，但是用 [`LLaVAR` Github Repo](https://github.com/SALT-NLP/LLaVAR) 的代码却能够正常说话，还能有这么奇怪的事？于是又是 4h 翻来覆去看 `vllm` 源码 + google... 最终发现问题出在了 `delta-pytorch_model-00001-of-00003.bin` 上面。我之前看过 `huggingface` 的 `.from_pretrained` 方法的加载 checkpoints 的逻辑，是取 `pytorch_model.bin.index.json` 文件的所有 value 的并集作为加载对象，非常合理正确，然后我就以为 `vllm` 也是一样的。直到我看到了 [`vllm` 的加载逻辑](https://github.com/vllm-project/vllm/blob/0f0d8bc065f3608e7657a9696f5d2d7c0d6722d1/vllm/model_executor/model_loader/loader.py#L156)，它居然是将 checkpoints 文件夹下所有 `.bin` 文件都加载？？？也就是说之前的 `delta-pytorch_model-00001-of-00003.bin` 文件也被加载了，所以有一些正确的参数就被 `delta` 版本的参数覆盖了，从而导致模型一直在胡言乱语不说人话。然后我把 `delta` 文件全删了，模型推理终于正常了。此时我想着一整个被用于 debug 的假期下午，只想大喊：“vllm 我 \*\*\*\*，你 \*\*\*\*！”
 
 ![红温](../assets/img/mimes/hongwen.png)
