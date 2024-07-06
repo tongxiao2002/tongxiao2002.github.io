@@ -1,7 +1,7 @@
 ---
 title: vllm 推理适配自定义模型 (2)
 date: 2024-07-05 20:30:00 +0800
-categories: [Large Language Models, Transformers]
+categories: [Transformers, Large Language Models]
 tags: [vllm, inference]
 math: true
 ---
@@ -19,9 +19,9 @@ math: true
 
 的模型对 `vllm` 进行适配。本质上，在上一篇文章中我们仅完成了[`vllm` 官网](https://docs.vllm.ai/en/latest/models/adding_model.html)上给出的增加自定义模型的 4 个步骤：
 
-1. 将自定义模型的 `forward` 函数接口（通常为 `huggingface-transformers` 的接口）改为 `vllm` 的通用接口：
-2. （可选）将自定义模型中的 Linear Layer 以及 Embedding 等改为支持 tensor paralellism 的形式，比如 `vllm` 中提供的 `QKVParallelLinear`, `VocabParallelEmbedding` 等等，不然没法通过 tensor parallelism 进行多卡推理加速。如果模型本身特别大，比如 `Llama-3-70B` 这种，那就必须要实现这一步，不然一张卡塞不下整个模型。
-3. 重写 `load_weights` 函数，用于从 checkpoints 中加载参数到模型中。
+1. 将自定义模型的 `forward` 函数接口（通常为 `huggingface-transformers` 的接口）改为 `vllm` 的通用接口；
+2. （可选）将自定义模型中的 Linear Layer 以及 Embedding 等改为支持 tensor paralellism 的形式，比如 `vllm` 中提供的 `QKVParallelLinear`, `VocabParallelEmbedding` 等等，不然没法通过 tensor parallelism 进行多卡推理加速。如果模型本身特别大，比如 `Llama-3-70B` 这种，那就必须要实现这一步，不然一张卡塞不下整个模型；
+3. 重写 `load_weights` 函数，用于从 checkpoints 中加载参数到模型中；
 4. 注册模型，让 `vllm.LLM` 能够识别自定义模型并执行。
 
 中的第3、4步，第1、2步由于 `vllm` 库已经实现了 `LLaVA` 模型的结构因此没有涉及。
