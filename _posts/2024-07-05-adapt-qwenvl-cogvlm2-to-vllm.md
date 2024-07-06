@@ -68,7 +68,7 @@ HuggingFace Repo: [https://huggingface.co/Qwen/Qwen-VL-Chat](https://huggingface
 
 由于 huggingface 中提供的 `Qwen-VL` 的 checkpoints 各字段都能够完美地与 `vllm` 实现的 `QwenLMHeadModel` 契合（以及刚刚实现的 `QwenVLLMHeadModel`），因此 `load_weights` 可以直接使用 `vllm` 中 `QwenLMHeadModel` 实现的 `load_weights` 函数，不需要做任何修改。
 
-### <h3 id="qwen-vl-data-inputs">数据输入修改</h3>
+<h3 id="qwen-vl-data-inputs">数据输入修改</h3>
 
 首先看 `Qwen-VL` 团队是怎么输入数据的，从 `GitHub` 的 [`TUTORIAL`](https://github.com/QwenLM/Qwen-VL/blob/master/TUTORIAL_zh.md) 可以看到用了 `tokenizer.from_list_format` 以及 `model.chat` 函数构造输入样例。
 
@@ -211,7 +211,7 @@ $$
 
 而 `vllm` 内部默认为每个 `token` 都赋一个独特的位置编码（如上所示），因此我们需要自己实现一个函数，将 `positions` 转变为正确的 `CogVLM2` 位置编码，这就是 [`reposition` 函数](https://github.com/tongxiao2002/vllm-for-LMMS/blob/main/lmm_modeling/cogvlm2/modeling_cogvlm.py#L260)做的事情。
 
-### <h3 id="cogvlm2-config-modify" >Config 修改</h3>
+<h3 id="cogvlm2-config-modify">Config 修改</h3>
 
 理论上，由于 `CogVLM2` 模型的 `configuration_cogvlm.py` 是在 checkpoints 文件夹下自己实现的，肯定和 `config.json` 文件是兼容的，因此貌似也不需要做任何更改。但是！！！由于 `CogVLM2` 模型是 `GQA` 模型，也就是 `num_attention_heads` 和 `num_key_value_heads` 不同，而在 `config.json` 中并没有明确给出 `num_key_value_heads` 的值（给的是 [`num_multi_query_heads` 的值](https://huggingface.co/THUDM/cogvlm2-llama3-chat-19B/blob/main/configuration_cogvlm.py#L15)，没错，只有名字不同），这时候 \*\*\*\* 的 `vllm` 又开始作妖了。
 
