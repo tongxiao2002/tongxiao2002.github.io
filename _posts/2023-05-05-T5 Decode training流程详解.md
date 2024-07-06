@@ -1,8 +1,8 @@
 ---
 title: T5 Decode training 流程详解
 date: 2023-05-05 20:20:00 +0800
-categories: [Deep Learning]
-tags: [transformer, decode]
+categories: [Transformers]
+tags: [train]
 ---
 
 # T5 Decode training 流程详解

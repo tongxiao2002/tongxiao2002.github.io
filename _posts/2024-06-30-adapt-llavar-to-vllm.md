@@ -1,7 +1,7 @@
 ---
 title: vllm 推理适配自定义模型 (1)
 date: 2024-06-30 16:30:00 +0800
-categories: [Large Language Models]
+categories: [Transformers, Large Language Models]
 tags: [vllm, inference]
 ---
 
@@ -54,7 +54,7 @@ tags: [vllm, inference]
 
 LLaVAR Github Repo: [https://github.com/SALT-NLP/LLaVAR](https://github.com/SALT-NLP/LLaVAR)
 
-LLaVAR Huggingface Repo: [https://huggingface.co/SALT-NLP/LLaVAR_delta](https://huggingface.co/SALT-NLP/LLaVAR_delta)
+LLaVAR HuggingFace Repo: [https://huggingface.co/SALT-NLP/LLaVAR_delta](https://huggingface.co/SALT-NLP/LLaVAR_delta)
 
 ## 实现 `LlavaRForConditionalGeneration` 类，修改模型结构
 
