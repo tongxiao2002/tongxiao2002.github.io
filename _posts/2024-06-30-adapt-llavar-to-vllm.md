@@ -5,7 +5,7 @@ categories: [Transformers, Large Language Models]
 tags: [vllm, inference]
 ---
 
-本文对应代码：[https://github.com/tongxiao2002/vllm-for-LMMS](https://github.com/tongxiao2002/vllm-for-LMMS)
+本文对应代码：[https://github.com/tongxiao2002/vllm-for-LMMs](https://github.com/tongxiao2002/vllm-for-LMMS)
 
 ## 背景
 
