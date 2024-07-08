@@ -6,7 +6,7 @@ tags: [vllm, inference]
 math: true
 ---
 
-本文对应代码：[https://github.com/tongxiao2002/vllm-for-LMMs](https://github.com/tongxiao2002/vllm-for-LMMS)
+本文对应代码：[https://github.com/tongxiao2002/vllm-for-LMMs](https://github.com/tongxiao2002/vllm-for-LMMs)
 
 由于本文代码相比上一篇文章较为复杂，所以就不在文中贴出代码块，改为解释过程中穿插代码的 URL，所有代码 URL 都会**精确到行**。
 
